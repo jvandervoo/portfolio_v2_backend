@@ -1,0 +1,22 @@
+{
+  "name": "portfolio_v2_backend",
+  "version": "1.0.0",
+  "description": "Jasper's Portfolio Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JVandervoo/portfolio_v2_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JVandervoo/portfolio_v2_backend/issues"
+  },
+  "homepage": "https://github.com/JVandervoo/portfolio_v2_backend#readme",
+  "dependencies": {
+    "aws-sdk": "^2.382.0"
+  }
+}
