@@ -43,6 +43,9 @@ exports.handler = async (event, context, callback) => {
         const response = {
             statusCode: 200,
             body: JSON.stringify(projects),
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
         };
 
         callback(null, response);
@@ -52,7 +55,10 @@ exports.handler = async (event, context, callback) => {
         };
         const response = {
             statusCode: 500,
-            body: JSON.stringify(responseBody)
+            body: JSON.stringify(responseBody),
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
         }
 
         callback(null, response);
