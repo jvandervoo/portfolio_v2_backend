@@ -1,6 +1,8 @@
 const AWS = require("aws-sdk");
 AWS.config.region = "ap-southeast-2";
-const DynamoDB = new AWS.DynamoDB();
+const DynamoDB = new AWS.DynamoDB({
+    apiVersion: '2012-08-10'
+});
 
 exports.handler = async (event, context, callback) => {
     try {
@@ -11,20 +13,24 @@ exports.handler = async (event, context, callback) => {
 
         var params = {
             ExpressionAttributeNames: {
-                "#ID": "id",
-                "#T": "title"
+                "#ID": "ID",
+                "#T": "Title",
+                "#IMG": "ImageLink",
             },
-            ProjectionExpression: "#ID, #T",
+            ProjectionExpression: "#ID, #T, #IMG",
             TableName: "Projects"
         };
 
         if (id) {
             params.ExpressionAttributeValues = {
                 ":id": {
-                    N: id
+                    S: id
                 }
             };
-            params.FilterExpression = "id = :id";
+            params.FilterExpression = "ID = :id";
+            params.ProjectionExpression += ", #DESC, #DATE";
+            params.ExpressionAttributeNames['#DESC'] = "Description";
+            params.ExpressionAttributeNames['#DATE'] = "Date";
         }
 
         const dynamoResponse = await DynamoDB.scan(params).promise();
@@ -34,8 +40,11 @@ exports.handler = async (event, context, callback) => {
         if (dynamoResponse.Items) {
             dynamoResponse.Items.forEach(item => {
                 projects.push({
-                    id: item.id.N,
-                    title: item.title.S
+                    id: item.ID.S,
+                    title: item.Title.S,
+                    img: item.ImageLink ? item.ImageLink.S : "",
+                    description: item.Description ? item.Description.S : "",
+                    date: item.Date ? item.Date.S : "",
                 });
             });
         }
