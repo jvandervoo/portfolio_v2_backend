@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/JVandervoo/portfolio_v2_backend#readme",
   "dependencies": {
-    "aws-sdk": "^2.382.0"
+    "aws-sdk": "^2.395.0"
   }
 }
